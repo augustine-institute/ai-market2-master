@@ -5,7 +5,7 @@ import {browser, by, element, protractor, $} from 'protractor';
 import {defineSupportCode, StepDefinitionParam, TableDefinition} from 'cucumber';
 import * as _ from 'lodash';
 import {expect} from '../../support/hooks';
-import { Key } from 'protractor/node_modules/@types/selenium-webdriver';
+//import { Key } from 'protractor/node_modules/@types/selenium-webdriver';
 import { callbackify } from 'util';
 import { Driver } from 'selenium-webdriver/opera';
 import { F_OK } from 'constants';
