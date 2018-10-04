@@ -2,7 +2,7 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 var expects = chai.use(chaiAsPromised).expect;
 import {browser, by, element, protractor, $} from 'protractor';
-import {defineSupportCode, StepDefinitionParam, TableDefinition} from 'cucumber';
+import {defineSupportCode, StepDefinition, TableDefinition} from 'cucumber';
 import * as _ from 'lodash';
 import {expect} from '../../support/hooks';
 //import { Key } from 'protractor/node_modules/@types/selenium-webdriver';
@@ -10,7 +10,6 @@ import { callbackify } from 'util';
 import { Driver } from 'selenium-webdriver/opera';
 import { F_OK } from 'constants';
 import { async } from 'q';
-
 
 
 defineSupportCode(function ({Given, Then, When}) {
@@ -259,7 +258,9 @@ defineSupportCode(function ({Given, Then, When}) {
         await delay(10000);
 	});
 	Then('PAP-0010 Audio dramas page is displayed', async () => {
-        await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a"))).to.eventually.exist;
+        await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
+		await delay(2000);
+		await expect(browser.findElement(by.xpath(".//*[@id='sorter']"))).to.eventually.exist;
         await delay(2000);
     });
     When('PAP-0020 i click on Item', async () => {
@@ -269,7 +270,7 @@ defineSupportCode(function ({Given, Then, When}) {
 	Then('PAP-0020 Product detailed page is displayed', async () => {     
         await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[4]/div[2]/h1/span"))).to.eventually.exist;
         await delay(3000);
-        await expect(browser.findElement(by.xpath(".//*[@id='options-803-list']/div/label"))).to.eventually.exist;
+        await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
         await delay(3000);
         await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[5]/div[1]/div[1]/div/img"))).to.eventually.exist;
         await delay(3000);
@@ -278,7 +279,7 @@ defineSupportCode(function ({Given, Then, When}) {
     Then('PAP-0020 Text, You May Also Like, Product card in right column with image, Add to cart button are displayed', async () => {
         await expect(browser.findElement(by.xpath(".//*[@id='related-products-slider']/div/div/div[1]/a/div/img"))).to.eventually.exist;
         await delay(3000);
-        await expect(browser.findElement(by.xpath(".//*[@id='related-products-slider']/div/div/div[1]/a/span"))).to.eventually.exist;
+        await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[4]/div[5]/div/h2"))).to.eventually.exist;
         await delay(5000);   
 	});
 	Then('Click on Add to cart', async () => {     
@@ -292,9 +293,9 @@ defineSupportCode(function ({Given, Then, When}) {
 		await delay(6000);
 		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div[1]/span/img"))).to.eventually.exist;
 		await delay(3000);
-		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li[1]/div[1]/div/div"))).to.eventually.exist;
+		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div/div/strong[1]/a"))).to.eventually.exist;
 		await delay(3000);
-		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li[1]/div[1]/div/strong[2]"))).to.eventually.exist;
+		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div/div/strong[1]/a"))).to.eventually.exist;
 		await delay(3000);
 	 });      
 	 When('PBP-0060 click on title',async () => {
@@ -312,8 +313,6 @@ defineSupportCode(function ({Given, Then, When}) {
 	When('PBP-0060 click on remove option',async () => {
 	    element(by.xpath(".//*[@id='mini-cart']/li[1]/div[1]/div/div/div/a")).click();
         await delay(5000);
-		await expect(browser.findElement(by.xpath(".//*[@id='minicart-content-wrapper']/div"))).to.eventually.exist;
-	    await delay(3000);
 	});
 	Then('PBP-0060 Item Remove prompt is displayed and click on OK button',async () => {
 		await expect(browser.findElement(by.xpath(".//*[@class='action-secondary action-dismiss']"))).to.eventually.exist;
@@ -771,7 +770,7 @@ Then('your library is  empty and some message is displayed',async () => {
 	
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/section/h1"))).to.eventually.exist;
 	await delay(2000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/section/p"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/section/p/a"))).to.eventually.exist;
 	await delay(2000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/section/a"))).to.eventually.exist;
 	await delay(2000);
@@ -814,14 +813,16 @@ When('LP-0020 click on library page', async () => {
 Then('LP-0030 Purchase products is displayed', async () => {
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li[1]/div/div/a/img"))).to.eventually.exist;
 	await delay(3000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li[2]/div/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/a/label/div[1]"))).to.eventually.exist;
 	await delay(3000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li[3]/div/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 When('LP-0050 click on watch', async () => {
 	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li/ol/li[1]/a/label")).click();
-	await delay(10000);
+	await delay(15000);
+});
+Then('LP-0050 watch purchased products are displayed', async () => {
 	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/catalog/product/view/id/376/s/vd-threemiraclesofhappiness-en/category/6/']"))).to.eventually.exist;
 	await delay(3000);
 	await expect(browser.findElement(by.xpath(".//*[@id='open-modal-mylibrary-player-1969']/i"))).to.eventually.exist;
@@ -842,17 +843,19 @@ Then('LP-0060 click on play button', async () => {
 });
 Then('LP-0070 click on play button', async () => {
 	await delay(5000);
-	element(by.xpath(".//*[@id='close-modal-mylibrary-player-1665']")).click();
+	element(by.xpath(".//*[@id='open-modal-mylibrary-player-1665']/i")).click();
 	await delay(5000);
 });
 When('LP-0070 click on Listen', async () => {
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li/ol/li[2]/a/label/div[1]")).click();
+	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/a/label/div[1]")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img"))).to.eventually.exist;
+});
+Then('LP-0070 Listen purchased products are displayed', async () => {
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li[1]/div/div/a/img"))).to.eventually.exist;
 	await delay(3000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/div[1]/div"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/ol/li[1]/a/label/div[1]"))).to.eventually.exist;
 	await delay(3000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/div[2]"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/ol/li[2]/a/label/div[1]"))).to.eventually.exist;
 	await delay(5000);
 	element(by.xpath(".//*[@id='open-modal-mylibrary-player-1665']/i")).click();
 	await delay(15000);
@@ -866,19 +869,21 @@ When('LP-0040 click on Titel string', async () => {
 	await delay(3000);   
 });
 When('LP-0080 click on Read', async () => {
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li/ol/li[3]/a/label/div[1]")).click();
+	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[3]/a/label")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li[1]/div/div/div[2]/strong"))).to.eventually.exist;
+});
+Then('LP-0080 Read products are displayed', async () => {
+	await expect(browser.findElement(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[3]/ol/li[1]/a/label/div[1]"))).to.eventually.exist;
 	await delay(3000);
+});
+When('LP-0090 Click on download icon', async () => {
 	element(by.xpath(".//*[@id='open-ebook-download-modal-2297']/i")).click();
 	await delay(10000);
 });
 Then('LP-0090 Download format is displayed', async () => {
-	await expect(browser.findElement(by.xpath(".//*[@id='ebook-download-modal-2297']/p"))).to.eventually.exist;
-	await delay(3000);
 	await expect(browser.findElement(by.xpath(".//*[@id='ebook-download-modal-2297']/div/div[1]/a"))).to.eventually.exist;
 	await delay(5000);
-	await expect(browser.findElement(by.xpath(".//*[@id='ebook-download-modal-2297']/div/div[1]/p"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='ebook-download-modal-2297']/div/div[2]/a"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LLP-0010 Formed icon, Ondemand, Library, Market are displayed', async  () => {
