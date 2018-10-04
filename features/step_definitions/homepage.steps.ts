@@ -2,7 +2,7 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 var expects = chai.use(chaiAsPromised).expect;
 import {browser, by, element, protractor, $} from 'protractor';
-import {defineSupportCode, StepDefinition, TableDefinition} from 'cucumber';
+import {defineSupportCode, StepDefinitionParam, TableDefinition} from 'cucumber';
 import * as _ from 'lodash';
 import {expect} from '../../support/hooks';
 //import { Key } from 'protractor/node_modules/@types/selenium-webdriver';
