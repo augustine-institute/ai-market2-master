@@ -24,9 +24,9 @@ defineSupportCode(function ({Given, Then, When}) {
 	When('navigate to market page', async () => {
 		await delay(10000);
 		element(by.xpath("//a[@href='https://market.beta.formed.org']")).click();
-		await delay(20000);
+		await delay(15000);
 	    await browser.get("https://market2.beta.formed.org");
-	    await delay(30000);
+	    await delay(20000);
 	});
 	When('Click on market page', async () => {
 		await delay(10000);
@@ -96,7 +96,7 @@ defineSupportCode(function ({Given, Then, When}) {
 	});
 	When('ABP-0010 click on account overview', async () => {
 		await delay(5000);
-		element(by.xpath(".//a[@href='https://market2.beta.formed.org/customer/account/']")).click();                  
+		element(by.xpath(".//*[@id='account-nav']/ul/li[1]/a")).click();                  
 		await delay(10000);
 	});
 	When('ABP-0010 account overview is displayed', async () => {
@@ -170,7 +170,7 @@ defineSupportCode(function ({Given, Then, When}) {
 	Then('ABP-0050 credit plan details are displayed', async () => {
 		await expect(browser.findElement(by.xpath(".//*[@id='cancel-credit-plan-btn']"))).to.eventually.exist;
 		await delay(3000);
-		element(by.xpath(".//a[@href='https://market.beta.formed.org/creditplans.html/']")).click();
+		element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[2]/div/p[2]/a[1]")).click();
 		await delay(15000);
 	});
 		Then('ABP-0050 credit plan subscription is displayed', async () => {
@@ -225,22 +225,22 @@ defineSupportCode(function ({Given, Then, When}) {
 	});
 	When('i move to study products', async () => {
 	    await delay(5000);
-        browser.actions().mouseMove(element(by.xpath("//a[@href='https://market2.beta.formed.org/study.html']"))).perform();
+        browser.actions().mouseMove(element(by.linkText("Study"))).perform();
         await delay(5000);
 	});
 	When('i move to watch products', async () => {
 	    await delay(5000);
-        browser.actions().mouseMove(element(by.xpath("//a[@href='https://market2.beta.formed.org/watch.html']"))).perform();
+        browser.actions().mouseMove(element(by.linkText("Watch"))).perform();
         await delay(5000);
 	});
 	When('i move to listen products', async () => {
 	    await delay(5000);
-        browser.actions().mouseMove(element(by.xpath("//a[@href='https://market2.beta.formed.org/listen.html']"))).perform();
+        browser.actions().mouseMove(element(by.linkText("Listen"))).perform();
         await delay(5000);
 	});
 	When('i move to read products', async () => {
 	    await delay(5000);
-        browser.actions().mouseMove(element(by.xpath("//a[@href='https://market2.beta.formed.org/read.html']"))).perform();
+        browser.actions().mouseMove(element(by.linkText("Read"))).perform();
         await delay(5000);
 	});
 	When('i move to subscription products', async () => {
@@ -557,7 +557,7 @@ When('i click on user name drop down', async () => {
 });
 When('ABP-0010 click on get credit plan', async () => {
 	await delay(10000);
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/rewards/account/']")).click();
+	element(by.xpath("html/body/header/section[2]/div[8]/div/a/span")).click();
 	await delay(15000);
 });
 When('click on credits', async () => {
@@ -584,7 +584,7 @@ Then('CO-0080 Click on place Order', async () => {
 });
 When('click on watch document product', async () => {
 	await delay(5000);
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/watch/documentaries.html']")).click();
+	element(by.xpath("html/body/header/section[3]/section/div[1]/div[2]/div/ul/li[2]/div/a")).click();
 	await delay(15000);
 });
 Then('click on watch document', async () => {
@@ -1492,8 +1492,6 @@ When('SPP-0050 click on filter product',async () => {
 	await delay(5000);
 	element(by.xpath(".//*[@id='narrow-by-list']/dd[4]/ol/form/li[1]/a/label/span")).click();
 	await delay(10000);
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[4]/ol/form/li[2]/a/label/span")).click();
-	await delay(10000);
 });
 Then('SPP-0050 Product details are displayed',async () => {
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[1]/ol/li[1]/div/a/img"))).to.eventually.exist;
@@ -1502,7 +1500,8 @@ Then('SPP-0050 Product details are displayed',async () => {
 	await delay(10000);
 });
 Then('SPP-0060 Product page is displayed',async () => {
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/listen/talks.html']")).click();
+	await delay(5000);
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/study/dvds.html']")).click();
 	await delay(10000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img"))).to.eventually.exist;
 	await delay(5000);
@@ -1525,13 +1524,14 @@ Then('SPP-0070 featured drop down is displayed',async () => {
 	await delay(2000);
 });
 Then('SPP-0080 is products displayed',async () => {
+	await delay(10000);
 	await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
 	await delay(5000);
 });
 When('SPP-0080 Click on product',async () => {
- 
-	element(by.xpath("//*[@id='amasty-shopby-product-list']/div[3]/ol/li[2]/div/a/img")).click();
 	await delay(5000);
+	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li/div/a/img")).click();
+	await delay(25000);
 });
 Then('navigate to lenlet_cart', async () => {
 	await delay(5000);
@@ -1823,8 +1823,10 @@ Then('LPA-0040 Click on Documentaries and Verify with parish admin', async () =>
 });
 Then('click on Faith formation link and verify', async () => {
 	await delay(5000);
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/study/dvds.html']")).click();
-	await delay(15000);                      
+	element(by.xpath("html/body/header/section[3]/section/div[1]/div[1]/div/ul/li[1]/div/a")).click();
+	await delay(15000);          
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li/div/a/img"))).to.eventually.exist;
+	await delay(3000);
 });
 Then('LPA-0040 Click on Apologetics and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/watch?linkId=watch-apologetics']")).click();
@@ -1860,8 +1862,11 @@ Then('LPA-0050 Click on Listen audio drama and Verify with parish admin', async 
 	await delay(3000);
 });
 Then('click on Bible studies link and verify', async () => {
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/study/bible-studies.html']")).click();
+	await delay(5000);
+	element(by.xpath("html/body/header/section[3]/section/div[1]/div[1]/div/ul/li[2]/div/a")).click();
 	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img"))).to.eventually.exist;
+	await delay(3000);
 });
 Then('LPA-0050 Click on Listen audio books and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/listen?linkId=listen-audiobooks']")).click();
@@ -1902,6 +1907,7 @@ Then('LPA-0060 Click on Read espanol and Verify with parish admin', async () => 
 	element(by.xpath("//a[@href='/read?linkId=read-espanol']")).click();
 	await delay(6000);
 	await expect(browser.findElement(by.xpath(".//*[@id='read-espanol']/div/div[1]/h1"))).to.eventually.exist;
+	await delay(5000);
 	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[1]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 }); 
@@ -1941,8 +1947,11 @@ Then('click on feature film link and verify', async () => {
 });     
 Then('click on Documentreies link and verify', async () => {
     await delay(5000);
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/watch/documentaries.html']")).click();
+	element(by.xpath("https://market2.beta.formed.org/shop-products/watch/documentaries.html")).click();
 	await delay(20000);
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/h1"))).to.eventually.exist;
+    await delay(2000);
+
 });
 Then('click on Talks link and verify', async () => {
     await delay(5000);
@@ -1973,6 +1982,7 @@ Then('Click on talks Link and Verify', async () => {
 	await delay(2000); 
 });
 Then('Click on audio dramas Link and Verify', async () => {
+	await delay(1000);
 	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/listen/audio-dramas.html']")).click();
 	await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a"))).to.eventually.exist;
@@ -1993,6 +2003,7 @@ Then('Click on espanol Listen Link and Verify', async () => {
 	await delay(2000);
 });
 Then('Click on nonfiction link and verify', async () => {
+	await delay(5000);
 	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/nonfiction.html']"))).to.eventually.exist;
     await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[2]/div/a/img"))).to.eventually.exist;
