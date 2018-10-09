@@ -29,7 +29,7 @@ Feature: Vindicia Replacement
     Then VR-0090 sign in group detail is displayed
     When VR-0020 click on checkout button
     When PBP-0070 Click on the create an account
-    Then PBP-0070 Enter Details in create Account
+    Then VR-0020 Click on the create an account
     Then VR-0100 Billing information are displayed
     Then VR-0030 Enter Payment Method
     When VR-0120 click on Entercupon
