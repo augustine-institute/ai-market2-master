@@ -37,7 +37,7 @@ defineSupportCode(function ({Given, Then, When}) {
 		await delay(10000);
 		element(by.xpath(".//*[@id='amasty-shopby-product-list']/section/a")).click();
 		await delay(20000);
-});
+  });
 	When('i click on login button and enter username and password', async () => {
         await delay(10000);
         element(by.xpath(".//*[@id='login-dropdown-button']")).click();
@@ -248,27 +248,25 @@ defineSupportCode(function ({Given, Then, When}) {
         browser.actions().mouseMove(element(by.xpath("//a[@href='ttps://market2.beta.formed.org/formed-subscriptions.html']"))).perform();
         await delay(5000);
 	});
-	When('PAP-0010 i navigate to listen and click on audio dramas', async () => {
+	When('PAP-0010 click on Talks', async () => {
 		await delay(7000);
-        element(by.xpath(".//*[@href='https://market2.beta.formed.org/shop-products/listen/audio-dramas.html']")).click();
+        element(by.xpath(".//*[@href='https://market2.beta.formed.org/shop-products/listen/talks.html']")).click();
         await delay(20000);
 	});
-	Then('PAP-0010 Audio dramas page is displayed', async () => {
+	Then('PAP-0010 Talks page is displayed', async () => {
 		await delay(5000);
 		await expect(browser.findElement(by.xpath(".//*[@id='sorter']"))).to.eventually.exist;
         await delay(2000);
-        await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
+        await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img"))).to.eventually.exist;
         await delay(2000);
     });
     When('PAP-0020 i click on Item', async () => {
 		await delay(5000);
-        element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img")).click();
+        element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img")).click();
         await delay(15000);
 	});
 	Then('PAP-0020 Product details is displayed', async () => {     
         await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[4]/div[2]/h1/span"))).to.eventually.exist;
-        await delay(3000);
-        await expect(browser.findElement(by.xpath(".//*[@id='product__description--toggle']"))).to.eventually.exist;
         await delay(3000);
         await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[5]/div[1]/div[1]/div/img"))).to.eventually.exist;
         await delay(3000);
@@ -277,7 +275,9 @@ defineSupportCode(function ({Given, Then, When}) {
         await expect(browser.findElement(by.xpath(".//*[@id='related-products-slider']/div/div/div[1]/a/div/img"))).to.eventually.exist;
         await delay(3000);
         await expect(browser.findElement(by.xpath(".//*[@id='related-products-slider']/div/div/div[1]/a/span"))).to.eventually.exist;
-        await delay(5000);   
+		await delay(5000);   
+		await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
+        await delay(5000); 
 	});
 	Then('Click on Add to cart', async () => {     
 		await delay(5000);   
@@ -288,25 +288,34 @@ defineSupportCode(function ({Given, Then, When}) {
 		await delay(5000);
 		element(by.xpath(".//*[@class='counter qty']")).click();
 		await delay(6000);
+	});
+	Then('PBP-0060 Added product details is dispalyed',async () => {
 		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div/span/img"))).to.eventually.exist;
 		await delay(3000);
 		await expect(browser.findElement(by.xpath(".//*[@id='top-cart-btn-checkout']"))).to.eventually.exist;
 		await delay(3000);
 		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div/div/strong[1]/a"))).to.eventually.exist;
 		await delay(3000);
-	 });      
+	});      
 	 When('PBP-0060 click on title',async () => {
 		await delay(5000);
+		await expect(browser.findElement(by.xpath(".//*[@id='mini-cart']/li/div/div/strong[1]/a"))).to.eventually.exist;
+		await delay(3000);
 	    element(by.xpath(".//*[@id='mini-cart']/li/div/div/strong[1]/a")).click();
         await delay(20000);
 	});
 	When('PAP-0050 click on product in you may also like', async () => {
-		await delay(5000);
+		await delay(10000);
         element(by.xpath(".//*[@id='related-products-slider-desktop']/div/div/div[1]/a/div/img")).click();
         await delay(20000);
 	});
+	When('PBP-0050 click on product in you may also like', async () => {
+		await delay(15000);
+        element(by.xpath(".//*[@id='related-products-slider-desktop']/div/div/div[3]/a/div/img")).click();
+        await delay(20000);
+	});
 	When('PBP-0060 click on remove option',async () => {
-	    element(by.xpath(".//*[@id='mini-cart']/li[1]/div/div/div[3]/div/a")).click();
+	    element(by.xpath(".//*[@id='mini-cart']/li[2]/div/div/div[2]/div/a")).click();
         await delay(15000);
 	});
 	Then('PBP-0060 Item Remove prompt is displayed and click on OK button',async () => {
@@ -316,6 +325,7 @@ defineSupportCode(function ({Given, Then, When}) {
         await delay(10000);
 	});
 	When('PBP-0060 Click on checkout option',async () => {
+		element(by.xpath(".//*[@class='counter qty']")).click();
 		await delay(5000);
 	    element(by.xpath(".//*[@id='top-cart-btn-checkout']")).click();
         await delay(20000);		
@@ -353,7 +363,7 @@ defineSupportCode(function ({Given, Then, When}) {
 	  element(by.xpath(".//*[@id='gigya-register-screen']/form/div[2]/div[6]/input[1]")).click();        
 	  await delay(20000);
   });
-  Then('PBP-0070 Billing information are displayed', async () => { 
+  Then('PBP-0070 Enter Billing information', async () => { 
 	await delay(20000);
 	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/fieldset/div/div[1]/div/input")).sendKeys("Chicago illonois");
 	await delay(5000);
@@ -365,6 +375,27 @@ defineSupportCode(function ({Given, Then, When}) {
 	await delay(1000);
 	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[6]/div/input")).sendKeys("60014");
 	await delay(5000);	
+});
+Then('PBP-0070 Enter Shipping information', async () => { 
+	await delay(20000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[2]/div/div[2]/form/div/fieldset/div/div[1]/div/input")).sendKeys("Chicago illonois");
+	await delay(5000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[2]/div/div[2]/form/div/div[3]/div/input")).sendKeys("Chicago");
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[2]/div/div[2]/form/div/div[5]/div/select")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[2]/div/div[2]/form/div/div[5]/div/select/option[13]")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[2]/div/div[2]/form/div/div[6]/div/input")).sendKeys("60014");
+	await delay(5000);	
+	element(by.xpath(".//*[@id='checkout-step-shipping']/div[5]/h2")).click();
+	await delay(10000);
+});
+Then('PBP-0070 select Shipping Service Speed', async () => { 
+	await expect(browser.findElement(by.xpath(".//*[@id='checkout-shipping-method-load']/div[5]/label/span"))).to.eventually.exist;
+	await delay(3000);
+	element(by.xpath(".//*[@id='checkout-shipping-method-load']/div[5]/label/span")).click();
+	await delay(10000);
 });
 Then('PBP-0070 Enter Payment Method', async () => { 
 	
@@ -398,18 +429,18 @@ Then('PBP-0070 Verify the Checkout Page', async () => {
 	element(by.xpath(".//*[@id='checkout-step-review']/div[2]/div/button")).click();
 	await delay(15000);
 });
-Then('PBP-0070 Click on purchase produt in library page', async () => { 
+Then('PBP-0070 Click on purchase product in library page', async () => { 
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img"))).to.eventually.exist;
 	await delay(10000);
 	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img")).click();
 	await delay(8000);
 
 });
-Then('PBP-0070 Order Confirmation is displayed for Group', async () => {         
+Then('PBP-0070 Order Confirmation is displayed', async () => {         
 	await delay(10000);
 	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[5]/button"))).to.eventually.exist;
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[1]/div/div[1]/strong"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[1]/h2"))).to.eventually.exist;
 	await delay(10000);
 	element(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[5]/button")).click();
     await delay(10000);
@@ -425,7 +456,8 @@ When('PBP-0070 Click on view in library', async () => {
   element(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[5]/button")).click();
   await delay(10000);
 });
-Then('PBP-0070 View in library is displayed', async () => {      
+Then('PBP-0070 View in library is displayed', async () => {   
+	await delay(5000);   
 	await expect(browser.findElement(by.xpath(".//*[@id='product-viewinlibrary-button']"))).to.eventually.exist;
 	await delay(10000);
 });
@@ -599,8 +631,9 @@ Then('click on watch document1', async () => {
 });
 Then('CPS-0080 Order Confirmation is displayed', async () => { 
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/header/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div/div[4]/div[1]/div[1]/div[2]/div[2]/strong"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[1]/h2"))).to.eventually.exist;
+	await delay(5000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[1]/div/div[1]/strong"))).to.eventually.exist;
 	await delay(10000);
 });
 Then('CPS-0010 there is get credit plan', async () => {
@@ -614,12 +647,11 @@ Then('click on product', async () => {
 });
 Then('CPS-0020 Get Credit Plan prompt is displayed', async () => {
 	await delay(5000);
-	await expect(browser.findElement(by.xpath("html/body/header/section[1]/div[8]/div/a/span"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath("html/body/header/section[2]/div[8]/div/a/span"))).to.eventually.exist;
 	await delay(10000);
-		//element(by.xpath("html/body/header/section[1]/div[8]/div/a/span")).isDisplayed();
 });       
 When('CPS-0030 i click on get credits plan', async () => {      
-  element(by.xpath("html/body/header/section[2]/div[8]/div/a/span")).click();
+  element(by.linkText("Get Credit Plan")).click();
   await delay(10000);
 });
 Then('CPS-0030 get credits plan link is displayed', async () => {      
@@ -627,14 +659,14 @@ Then('CPS-0030 get credits plan link is displayed', async () => {
  await delay(10000);
 }); 
 When('CPS-0050 Click on Monthly credit plan', async () => {          
-	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[1]/ul/li[2]/form/button")).click();
-	await delay(10000);
+   element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[1]/ul/li[2]/form/button")).click();
+   await delay(10000);
 });	
 Then('CPS-0090 Available credits are displayed', async () => { 
 	await expect(browser.findElement(by.xpath(".//*[@class='counter amount']"))).to.eventually.exist;
 	await delay(5000);
 });
-When('then account is displayed', async () => {     
+Then('Account option is dispalyed in user drop down', async () => {     
     await expect(browser.findElement(by.xpath(".//*[@id='account-dropdown']/div/a[1]"))).to.eventually.exist;
     await delay(3000);
 });
@@ -1365,9 +1397,7 @@ await delay(4000);
 element(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[2]")).click();
 await delay(10000); 
 });
-Then('PBP-0010 click on Read option in digital products',async () => {
-browser.actions().mouseMove(element(by.xpath(".//*[@href='https://market2.beta.formed.org/read.html']"))).perform();
-await delay(5000);
+Then('PBP-0010 Read products is displayed',async () => {
 await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/nonfiction.html']"))).to.eventually.exist;
 await delay(3000);
 await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/fiction.html']"))).to.eventually.exist;
@@ -1375,22 +1405,15 @@ await delay(3000);
 await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/youth.html']"))).to.eventually.exist;
 await delay(3000);
 await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/espa-ol.html']"))).to.eventually.exist;
-await delay(3000);
-					  
+await delay(3000);					  
 });	   
-Then('PBP-0010 Read Products page is displayed',async () => {
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/nonfiction.html']"))).to.eventually.exist;
-	await delay(3000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/fiction.html']"))).to.eventually.exist;
-	await delay(3000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/youth.html']"))).to.eventually.exist;
-	await delay(3000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/espa-ol.html']"))).to.eventually.exist;
-	await delay(3000); 
+Then('PBP-0010 Click on fiction in Read link',async () => {
+	await delay(5000);
 	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/fiction.html']")).click();
-	await delay(10000);
+	await delay(15000);
 });
-When('PBP-0020 click on the read product', async () => {
+When('PBP-0020 Click on product', async () => {
+	await delay(5000);
 	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img")).click();
 	await delay(10000);
 });	
@@ -1402,7 +1425,7 @@ Then('PBP-0020 Read product and Add to cart button is displayed',async () => {
 });
 When('PBP-0030 click on Add to cart button', async () => {
 	element(by.xpath(".//*[@id='product-addtocart-button']")).click();
-	await delay(5000);
+	await delay(15000);
 });
 Then('PBP-0030 Message and cart icon number and incart displayed', async () => {
 	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[1]/div[2]/div[2]/div/div"))).to.eventually.exist;
@@ -1419,6 +1442,7 @@ When('PBP-0040 Click on incart button', async () => {
 	
 });
 When('PBP-0050 cart icon button is increased by 1', async () => {
+	await delay(5000);
 	await expect(browser.findElement(by.xpath(".//*[@class='counter-number']"))).to.eventually.exist;
 	await delay(5000);
 });
@@ -1915,7 +1939,7 @@ Then('i click on account and logout for parish in market page', async () => {
 	await delay(5000);
 	element(by.xpath(".//*[@id='account-dropdown-button']")).click();
 	await delay(4000);
-	element(by.xpath(".//*[@id='account-dropdown']/div/a[4]")).click();
+	element(by.xpath(".//*[@id='account-dropdown']/div/a[5]")).click();
 	await delay(5000);
 }); 
 Then('i click on account and logout for parish', async () => {
@@ -1947,7 +1971,7 @@ Then('click on feature film link and verify', async () => {
 });     
 Then('click on Documentreies link and verify', async () => {
     await delay(5000);
-	element(by.xpath("https://market2.beta.formed.org/shop-products/watch/documentaries.html")).click();
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/watch/documentaries.html']")).click();
 	await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/h1"))).to.eventually.exist;
     await delay(2000);
@@ -1955,7 +1979,7 @@ Then('click on Documentreies link and verify', async () => {
 });
 Then('click on Talks link and verify', async () => {
     await delay(5000);
-	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/watch/talks.html']")).click();
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/watch/talks.html']")).click();
 	await delay(20000);        
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[3]/div/a/img"))).to.eventually.exist;
     await delay(2000);
@@ -2004,43 +2028,49 @@ Then('Click on espanol Listen Link and Verify', async () => {
 });
 Then('Click on nonfiction link and verify', async () => {
 	await delay(5000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/nonfiction.html']"))).to.eventually.exist;
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/nonfiction.html']")).click();
     await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[2]/div/a/img"))).to.eventually.exist;
 	await delay(2000);  
 });
 Then('Click on fiction link and verify', async () => {
     await delay(5000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/fiction.html']"))).to.eventually.exist;
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/fiction.html']")).click();
     await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[2]/div/a/img"))).to.eventually.exist;
 	await delay(2000);
 });
 Then('Click on youth link and verify', async () => {
     await delay(5000);
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/youth.html']"))).to.eventually.exist;
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/youth.html']")).click();
     await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img"))).to.eventually.exist;
 	await delay(2000);
 });
 Then('Click on espanol link and verify', async () => {
-	await expect(browser.findElement(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/espa-ol.html']"))).to.eventually.exist;
+	element(by.xpath("//a[@href='https://market2.beta.formed.org/shop-products/read/espa-ol.html']")).click();
     await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
 	await delay(2000);
 });
 Then('Click on watch Link and Verify', async () => {
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/ol/li[1]/a/label/div")).click();
+	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[3]/a/label/div")).click();
 	await delay(20000);
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[1]/div/a/img"))).to.eventually.exist;
+	await delay(2000);
 });
 Then('Click on Listen Link and Verify', async () => {
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/ol/li[2]/a/label/div")).click();
+	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[4]/a/label/div")).click();
 	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
+	await delay(2000);
 });
 Then('Click on read Link and Verify', async () => {
 	await delay(5000);
-	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[2]/ol/li[3]/a/label/div")).click();
+	element(by.xpath(".//*[@id='narrow-by-list']/dd[1]/ol/form/li[5]/a/label/div")).click();
 	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
+	await delay(2000);
 });
 When('navigate to formed page', async () => {
 	element(by.xpath(".//*[@class='icon-formed']")).click();
@@ -2228,9 +2258,8 @@ When('click on login button and enter username and password', async () => {
         await delay(1000);
         element(by.xpath(".//*[@id='gigya-login-screen']/form/div/div[2]/div/input[1]")).click();
 		await delay(10000);
-	});
+});
 	Then('PPF-0070 Select Shipping method',async () => {
-		
 		element(by.xpath(".//*[@id='checkout-shipping-method-load']/div[1]/label/span")).click();
 		await delay(10000);
         element(by.xpath(".//*[@id='checkout-step-shipping']/div[7]/div/button")).click();
