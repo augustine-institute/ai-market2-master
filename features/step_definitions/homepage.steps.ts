@@ -25,12 +25,12 @@ defineSupportCode(function ({Given, Then, When}) {
 		await delay(10000);
 		element(by.xpath("//a[@href='https://market.beta.formed.org']")).click();
 		await delay(15000);
-	    await browser.get("https://market2.beta.formed.org");
+	    await browser.get("https://market.beta.formed.org");
 	    await delay(20000);
 	});
 	When('Click on market page', async () => {
 		await delay(10000);
-		element(by.xpath("//a[@href='https://market2.beta.formed.org/']")).click();
+		element(by.xpath("//a[@href='https://market.beta.formed.org/']")).click();
 		await delay(20000);
 	});
 	When('Click on Start shopping', async () => {
