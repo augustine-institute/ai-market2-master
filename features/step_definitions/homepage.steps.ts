@@ -2267,13 +2267,71 @@ Then('SPP-0050 Expand attributes',async () => {
 	element(by.xpath(".//*[@id='product__description--toggle']']")).click();
 	await delay(6000);		
 });
+Then('PAP-0020 Product detailed page is displayed', async () => {     
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[4]/div[2]/h1/span"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[5]/div[1]/div[1]/div/img"))).to.eventually.exist;
+	await delay(3000);
+
+});
+When('account is displayed', async () => {     
+    await expect(browser.findElement(by.xpath(".//*[@id='account-dropdown']/div/a[1]"))).to.eventually.exist;
+    await delay(3000);
+});
+Then('PBP-0070 Click on purchase produt in library page', async () => { 
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img"))).to.eventually.exist;
+	await delay(10000);
+	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img")).click();
+	await delay(8000);
+
+});
+Then('PBP-0070 Order Confirmation is displayed for Group', async () => {         
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[5]/button"))).to.eventually.exist;
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[1]/div/div[1]/strong"))).to.eventually.exist;
+	await delay(10000);
+	element(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[5]/button")).click();
+    await delay(10000);
+	//element(by.linkText("Order Date")).isDisplayed();
+	//element(by.linkText("1Year FORMED On Demand Gift Subscription")).isDisplayed();
+	//element(by.linkText("Payment summary")).isDisplayed();
+	//element(by.linkText("Sent to: Fname Lname")).isDisplayed();
+	//element(by.linkText("rajeshnakka.c212c@gmail.com")).isDisplayed();
+	await delay(10000);
+});
+Then('PBP-0070 Billing information are displayed', async () => { 
+	await delay(20000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/fieldset/div/div[1]/div/input")).sendKeys("Chicago illonois");
+	await delay(5000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[3]/div/input")).sendKeys("Chicago");
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[5]/div/select")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[5]/div/select/option[13]")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[1]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[6]/div/input")).sendKeys("60014");
+	await delay(5000);	
+});
+When('PAP-0010 i navigate to listen and click on audio dramas', async () => {
+	element(by.xpath(".//*[@href='https://market.beta.formed.org/shop-products/listen/audio-dramas.html']")).click();
+	await delay(10000);
+});
+Then('PAP-0010 Audio dramas page is displayed', async () => {
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li[4]/div/a/img"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='sorter']"))).to.eventually.exist;
+	await delay(2000);
+});
 Then('SPP-0050 collapse attributes',async () => {
 	await expect(browser.findElement(by.xpath(".//*[@id='product__description']"))).to.eventually.exist;
 	await delay(3000);
 });
 When('TS-0010 click on product in movies link', async () => {
     element(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[3]/div/stripe/div/div/div/div/div/div/div/div[6]/div/a/img")).click();
-    await delay(12000);
+    await delay(20000);
     await expect(browser.findElement(by.xpath(".//*[@id='movie-title']/h1"))).to.eventually.exist;
     await delay(1000);
     await expect(browser.findElement(by.xpath(".//*[@id='social-icons']/share/div/div/span[1]/a"))).to.eventually.exist;
