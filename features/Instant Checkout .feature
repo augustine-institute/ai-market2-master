@@ -61,7 +61,7 @@ Feature: URL instant checkout
   Then navigate to BiaY
   When ICO-0010 instant page is displayed
   Then PBP-0070 Enter Details in create Account
-  Then BiaY Billing information are displayed in incart
+  Then BiaY Pyment information is displayed
   Then BiYa Verify the Checkout Page
   Then BiaY order conformation is displayed
   When click on logout button
