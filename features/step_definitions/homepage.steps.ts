@@ -2083,8 +2083,8 @@ Then('LPA-0040 Click on watch espanol and Verify with parish admin', async () =>
 });
 Then('LPA-0050 Click on Listen Talks and Verify with parish admin', async () => {
 	await delay(5000);
-	element(by.xpath(".//*[@id='header']/div/div[3]/div/main-nav/ul/li[3]/segmented-menu-item/div/segmented-links/div/div[2]/a")).click();
-	await delay(6000);
+	element(by.xpath(".//*[@id='header']/div/div[3]/div/main-nav/ul/li[3]/segmented-menu-item/div/segmented-links/div/div[3]/a")).click();
+	await delay(10000);
 });
 Then('LPA-0050 Click on Listen audio drama and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/listen?linkId=listen-dramas']")).click();
@@ -2378,7 +2378,7 @@ Then('SPP-0050 collapse attributes',async () => {
 	await delay(3000);
 });
 When('TS-0010 click on product in movies link', async () => {
-    element(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img")).click();
+    element(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img")).click();
     await delay(25000);
     await expect(browser.findElement(by.xpath(".//*[@id='movie-title']/h1"))).to.eventually.exist;
     await delay(1000);
@@ -2438,9 +2438,10 @@ Then('TS-0100 close the share icons', async () => {
 	await delay(10000);
 });
 Then('TS-0040 click on audio image', async () => {
-	element(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[6]/div/a/img")).click();
-	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='audio']/div[1]/div/div[1]/img"))).to.eventually.exist;
+	await delay(5000);
+	element(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[8]/div/a/img")).click();
+	await delay(15000);
+	await expect(browser.findElement(by.xpath(".//*[@id='audio']/div[1]/div/div[2]/img"))).to.eventually.exist;
     await delay(1000);
 });
 Then('TS-0110 click on topicshares in on demand page', async () => {
@@ -2533,7 +2534,7 @@ When('click on login button and enter username and password', async () => {
         element(by.xpath(".//*[@id='checkout-step-shipping']/div[7]/div/button")).click();
 		await delay(10000);
 });
-Then('BiaY Pyment information is displayed', async () => { 
+Then('BiaY Payment information is displayed', async () => { 
 	await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button"))).to.eventually.exist;
 	await delay(2000);  
