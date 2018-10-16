@@ -1824,6 +1824,19 @@ Then('ICO-0020 Billing information are displayed in incart', async () => {
 	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[6]/div/input")).sendKeys("60014");
 	await delay(8000);	
 });
+Then('Trail Billing information are displayed in incart', async () => { 
+	await delay(20000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/fieldset/div/div[1]/div/input")).sendKeys("Chicago illonois");
+	await delay(5000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[3]/div/input")).sendKeys("Chicago");
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[5]/div/select")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[5]/div/select/option[13]")).click();
+	await delay(1000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[4]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[1]/form/fieldset/div[6]/div/input")).sendKeys("60014");
+	await delay(8000);	
+});
 Then('getbronze order conformation is displayed', async () => { 
 	await delay(10000);
     await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[2]/div[1]/h2"))).to.eventually.exist;
