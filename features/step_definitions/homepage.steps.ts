@@ -552,7 +552,7 @@ Then('CO-0050 Enter Details in create Account', async () => {
 	await delay(20000);   
 });  
 When('VR-0020 Click on the create an account', async () => {
-	await delay(5000);
+	await delay(20000);
 	await expect(browser.findElement(by.xpath(".//*[@href='/customer/account/create?onSuccess=onestepcheckout']"))).to.eventually.exist;
 	await delay(3000);
 	element(by.xpath(".//*[@href='/customer/account/create?onSuccess=onestepcheckout']")).click();
@@ -798,31 +798,33 @@ When('FFC-0050 Enter the credit card Cvv number', async () => {
     await expect(browser.findElement(by.xpath(".//*[@id='formed-funding-info__graph']"))).to.eventually.exist;
 	await delay(5000);
 	element(by.xpath(".//*[@id='magedelight_cybersource_cc_cid']")).sendKeys('123');
+	await delay(15000);
+	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
 	await delay(10000);
-	element(by.xpath(".//*[@id='checkout-payment-method-load']/div/div[2]/div[2]/div[2]/div[2]/div[6]/div/button")).click();
+	element(by.xpath(".//*[@id='checkout-step-review']/div[2]/div/button")).click();
 	await delay(20000);
 });
 Then('FFC-0060 Conformation Contribution is displayed', async () => {
 	await delay(5000);
-	await expect(browser.findElement(by.xpath(".//*[@class='formed-funding-order-success__met-amount']")).getText()).to.eventually.equal('$50.00');
-	await delay(5000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div/div[2]/strong/span")).getText()).to.eventually.equal('$50.00');
+	await delay(10000);
 });
 Then('FFC-0070 click on View button in Account page', async () => {
-		await delay(5000);
-		expect(element(by.xpath(".//*[@class='price']")).getText()).to.eventually.equal('$50.00');
-		await delay(5000);
-		element(by.xpath(".//*[@id='my-orders-table']/tbody/tr[1]/td[5]/a/span")).click();
-		await delay(10000);
+	await delay(5000);
+    await expect(element(by.xpath(".//*[@id='my-orders-table']/tbody/tr[1]/td[4]/span")).getText()).to.eventually.equal('$50.00');
+	await delay(5000);
+	element(by.xpath(".//*[@href='https://beta.formed.org/']")).click();
+	await delay(15000);
 });
 Then('FFC-0080 order Details is displayed', async () => {
-		expect(element(by.xpath(".//*[@id='maincontent']/div[2]/div[1]/div[3]/div[1]/div[4]/div[1]/div/div/div/div[2]/div[2]/span[2]/span")).getText()).to.eventually.equal('$50.00');
-		await delay(5000);
-		element(by.xpath(".//*[@href='https://beta.formed.org/']")).click();
-		await delay(15000);
+	await expect(element(by.xpath(".//*[@id='maincontent']/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[5]/div[2]/strong/span")).getText()).to.eventually.equal('$50.00');
+	await delay(5000);
+	element(by.xpath(".//*[@href='https://beta.formed.org/']")).click();
+	await delay(15000);
 });
 When('FFC-0090 Formed Funnding Contribution is displayed', async () => {
 	await delay(5000);
-	await expect(browser.findElement(by.xpath(".//*[@id='community-tabs']/div/div[1]/div[1]/organization-header/div/div[2]/crowd-funding-widget/div/div/div[3]/div/a"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='header']/div/div[3]/div/crowd-funding-widget/div/div/div[1]/a"))).to.eventually.exist;
 	await delay(5000);
 });
 Then('CO-0100 click on apply credits', async () => {
@@ -1309,8 +1311,16 @@ When('subscription information is displayed', async () => {
     await delay(5000);
 });
 Then('VR-0010 entercode,getfreetrail,sign up group is displayed', async  () => {
-    await delay(20000);
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[2]/div[2]/registration-column/a"))).to.eventually.exist;
+	await delay(5000);
 	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[2]/div[3]/registration-column/a"))).to.eventually.exist;
+	await delay(5000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[2]/div[4]/registration-column/modal-link/a/span"))).to.eventually.exist;
+	await delay(10000);
+});
+When('VR-0010 click on Sign up group', async () => { 
+    element(by.xpath(".//*[@id='scroll-top']/div/div/div[2]/div[3]/registration-column/a")).click();
 	await delay(10000);
 });
 Then('VR-0030 Billing information are displayed', async () => { 
@@ -1443,7 +1453,11 @@ Then('SGB-0050 Enter Organisation information', async () => {
     await delay(2000);
     //.//*[@id='maincontent']/div[2]/div/div[3]/div/div[2]/button
 });
-
+When('VR-0050 click on Entercupon', async () => {
+	await delay(8000);
+	await expect(browser.findElement(by.xpath(".//*[@id='discount-code']"))).to.eventually.exist;
+    await delay(2000);
+});
 When('VR-0040 click on Entercupon', async () => {
 	await delay(8000);
 	element(by.xpath(".//*[@id='coupons-tax-exempt']/div[1]/strong/a")).click();
@@ -1456,8 +1470,6 @@ When('VR-0040 click on Entercupon', async () => {
 
 When('VR-0030 Choose organization', async () => {
 	await delay(5000);
-	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
-	await delay(10000);
 	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
 	await delay(10000);
 	element(by.xpath(".//*[@id='group-subscription-diocese-select']")).click();
@@ -1493,7 +1505,9 @@ When('VR-0050 order conformation is displayed', async () => {
 
 });
 When('VR-0060 Enter organization information', async () => {
-	element(by.xpath(".//*[@id='groupLeader']")).sendKeys("Krishna");
+	browser.navigate().refresh();
+	await delay(25000);
+	element(by.xpath(".//*[@id='groupLeader']")).sendKeys("KSCR");
 	await delay(2000);
 	element(by.xpath(".//*[@id='groupMission']")).sendKeys("I love my country");
 	await delay(2000);
@@ -1518,10 +1532,11 @@ Then('VR-0060 Leader checklist is displayed', async () => {
 	element(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[2]")).click();
 	await delay(10000); 
 });
-Then('VR-0070 Account information is displayed', async () => {
-  await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[1]/div[1]/div/div/div/div[3]/div[2]/a"))).to.eventually.exist;
+Then('VR-0070 Subscription information is displayed', async () => {
+  await delay(10000);
+  await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[1]/div/div/div/div[3]/div[2]/modal-link/a/span"))).to.eventually.exist;
   await delay(2000);
-  await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[1]/div[1]/div/div/div/div[3]/div[2]/a"))).to.eventually.exist;
+  await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div/div[1]/div/div/div/div[1]/div[2]/a"))).to.eventually.exist;
   await delay(2000);
   element(by.xpath(".//*[@id='simple-dropdown']")).click();
   await delay(4000);
@@ -1538,8 +1553,6 @@ Then('VR-0090 sign in group detail is displayed', async  () => {
 
 await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[5]/div[1]/div[1]/div/img"))).to.eventually.exist;
 await delay(2000);
-element(by.xpath(".//*[@id='product-options-wrapper']/div/div[1]/div/label")).click();
-await delay(5000);
 element(by.xpath(".//*[@id='product-addtocart-button']")).click();
 await delay(10000);
 
@@ -1582,12 +1595,6 @@ await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/di
 await delay(2000);
 element(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div[1]/div[4]/div[1]/div[3]/button")).click();
 await delay(15000);
-});
-Then('VR-0140 subscription information', async () => {
-element(by.xpath(".//*[@id='simple-dropdown']/span")).click();
-await delay(4000);
-element(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[2]")).click();
-await delay(10000); 
 });
 Then('PBP-0010 Read products is displayed',async () => {
 await expect(browser.findElement(by.xpath("//a[@href='https://market.beta.formed.org/shop-products/read/nonfiction.html']"))).to.eventually.exist;
