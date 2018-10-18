@@ -65,6 +65,36 @@ defineSupportCode(function ({Given, Then, When}) {
         element(by.xpath(".//*[@id='account-dropdown']/div/a[1]")).click();
 		await delay(15000);
     });
+    Then('FFC-0310 click on Formed Contribution Account page and Edit the payment method', async () => {
+        await delay(15000);
+        element(by.xpath(".//*[@id='account-nav']/ul/li[11]/a")).click();
+        await delay(10000);
+        element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div/div[2]/div[3]/span[2]/a")).click();
+        await delay(10000);
+    });
+    Then('FFC-0310 change the Monthly amount', async () => {
+        await delay(15000);
+        element(by.xpath(".//*[@id='md_savecard']/option[1]")).click();
+        await delay(2000);
+        element(by.xpath(".//*[@id='subscription_profile_update']/div/div[2]/div/p/a")).click();
+        await delay(2000);
+    });
+    Then('FFC-0330 change the Contribution amount', async () => {
+        await delay(15000);
+        element(by.xpath(".//*[@id='change_recurring_amount_input']")).click();
+        await delay(5000);
+        element(by.xpath(".//*[@id='change_recurring_amount_input']")).sendKeys('1');
+        await delay(5000);
+        element(by.xpath(".//*[@class='change-recurring-amount-btn']")).click();
+        await delay(15000);
+    });
+    When('FFC-0330 click on Edit button in Monthly Recurring Amount', async () => {
+        await delay(15000);
+        await expect(browser.findElement(by.xpath(".//*[@id='change_recurring_amount']"))).to.eventually.exist;
+        await delay(2000);
+        element(by.xpath(".//*[@id='change_recurring_amount']")).click();
+        await delay(2000);
+    });
     When('ALP-0030 click On Demand Subscription in Account page', async () => {
         await expect(browser.findElement(by.xpath(".//*[@id='account-dropdown']/div/a[1]"))).to.eventually.exist;
         await delay(2000);
@@ -84,11 +114,15 @@ defineSupportCode(function ({Given, Then, When}) {
         element(by.xpath(".//*[@id='gigya-login-screen']/form/div/div[2]/div/input[1]")).click();
 		await delay(10000);
 	});
-
+	Then('FFC-0330 changed Contribution amount is displayed', async () => {
+		await delay(5000);
+		await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div[2]/div[1]/div/div")).getText()).to.eventually.equal('Recurring contribution amount successfully changed from $100.00 to $1,010.00.');
+		await delay(10000);
+	});
 	Then('ABP-0010 plan details are displayed', async () => {
 		await delay(5000);
 		await expect(browser.findElement(by.xpath("//a[@href='https://market.beta.formed.org/creditplans.html/']"))).to.eventually.exist;
-		await delay(3000);//
+		await delay(3000);
 		await expect(browser.findElement(by.xpath(".//a[@href='https://market.beta.formed.org/customer/account/']"))).to.eventually.exist;
 		await delay(3000);
 		await expect(browser.findElement(by.xpath(".//*[@id='cancel-credit-plan-btn']"))).to.eventually.exist;
@@ -437,11 +471,10 @@ Then('PBP-0070 Verify the Checkout Page', async () => {
 	await delay(10000);
 });
 Then('PBP-0070 Click on purchase product in library page', async () => { 
-	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[2]/div/ol/li[1]/div/div/a/img"))).to.eventually.exist;
 	await delay(10000);
-	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[4]/div/ol/li/div/div/a/img")).click();
+	element(by.xpath(".//*[@id='amasty-shopby-product-list']/div[2]/div/ol/li[1]/div/div/a/img")).click();
 	await delay(8000);
-
 });
 Then('PBP-0070 Order Confirmation is displayed', async () => {         
 	await delay(10000);
@@ -569,8 +602,6 @@ When('SGB-0060 Conformation prompt is displayed', async () => {
 Then('SGB-0070 leader check list is displayed', async () => {
     await delay(5000);
     await expect(browser.findElement(by.xpath(".//*[@id='leaders-wrapper']/div/div[9]/a"))).to.eventually.exist;
-    await delay(3000);
-    await expect(browser.findElement(by.xpath(".//*[@id='leaders-wrapper']/div/div[8]/label"))).to.eventually.exist;
     await delay(3000);
 });
 Then('CPS-0060 Enter Billing Information', async () => { 
@@ -780,6 +811,87 @@ Then('FFC-0030 Formed Funding goal is displayed and click on Contribute button',
 	await delay(15000);
     element(by.xpath(".//*[@class='btn btn-inverted btn-large']")).click();
 	await delay(20000); 
+});
+Then('FFC-0280 click on monthly and Contribution is entered', async () => {
+	await delay(3000);
+	element(by.xpath(".//*[@id='product-options-wrapper']/div/div[1]/div[2]/div/label/span")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='product-options-wrapper']/div/div[2]/input")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='product-options-wrapper']/div/div[2]/input")).sendKeys('100');
+	await delay(10000);
+});
+When('FFC-0340 Formed funding Account prompt is displayed', async () => {
+	await delay(15000);
+	await expect(browser.findElement(by.xpath("html/body/div[3]/aside[1]/div[2]/footer/button"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='has-recurring-modal']/p"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0340 click on Go To Account page', async () => {
+	await delay(5000);
+	element(by.xpath("html/body/div[3]/aside[1]/div[2]/footer")).click();
+	await delay(15000);
+});
+Then('FFC-0280 click on Next button', async () => {
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
+	await delay(2000);
+	element(by.xpath(".//*[@id='product-addtocart-button']")).click();
+	await delay(20000);
+});
+Then('FFC-0280 Next button is enable and click on Next button', async () => {
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='product-addtocart-button']"))).to.eventually.exist;
+	await delay(2000);
+	element(by.xpath(".//*[@id='product-addtocart-button']")).click();
+	await delay(20000);
+	element(by.xpath(".//*[@id='checkout-step-billing']/div[1]/div/select")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='checkout-step-billing']/div[1]/div/select/option[2]")).click();
+	await delay(5000);
+});
+Then('FFC-0290 Enter Billing information', async () => {
+	await delay(15000);
+	element(by.xpath('html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/form/fieldset/fieldset/div/div[1]/div/input')).sendKeys('chicago illunious');
+	await delay(2000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/form/fieldset/div[3]/div/input")).sendKeys('chicago');
+	await delay(2000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/form/fieldset/div[5]/div/select")).click();
+	await delay(2000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/form/fieldset/div[5]/div/select/option[13]")).click();
+	await delay(2000);
+	element(by.xpath("html/body/main/div/main/div/div/div[3]/div[3]/div/div[2]/div/div[4]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/form/fieldset/div[6]/div/input")).sendKeys('60014');
+	await delay(2000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_payment_profile_id']")).click();
+	await delay(2000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_payment_profile_id']/option[2]")).click();
+	await delay(10000);
+});
+When('FFC-0290 Enter payment method', async () => {
+	element(by.xpath(".//*[@id='magedelight_cybersource_cc_type']/option[3]")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_cc_number']")).sendKeys('4242424242424242');
+	await delay(10000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_expiration']/option[2]")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_expiration_yr']/option[4]")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='magedelight_cybersource_cc_cid']")).sendKeys('123');
+	await delay(10000);
+	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='checkout-step-review']/div[2]/div/button")).click();
+	await delay(10000);
+});
+Then('FFC-0300 Order conformation page is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div/div[2]/strong/span"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div/div[2]/strong"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div/div[3]/div/div[3]/dl/dd[2]"))).to.eventually.exist;
+	await delay(2000);
 });
 Then('FFC-0040 Formed Funding Campaign page is displayed', async () => {
 	await delay(5000);
@@ -1275,13 +1387,12 @@ When('PBC-0030 order conformation is displayed', async () => {
 });
 Then('Billing amount shows in Account overview page and Ondemand subpanel', async () => {
 	await delay(15000);
-	await expect(element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[1]/div[4]/p[1]")).getText()).to.eventually.equal('$625.00');
-	await delay(5000);
-	element(by.xpath(".//*[@id='account-nav']/ul/li[9]/strong")).click();
+	element(by.xpath("//a[@href='https://market.beta.formed.org/formed/account/']")).click();
 	await delay(10000);
 	await expect(element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div[1]/div/div[3]/span[2]")).getText()).to.eventually.equal('$625.00');
-	await delay(5000);               
-	
+	await delay(5000); 
+	await expect(element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[1]/div[4]/p[1]")).getText()).to.eventually.equal('$625.00');
+	await delay(5000);            
 });
 Then('PBC-0120 click on account page in user dropdown', async () => {
 	await delay(5000);
@@ -1390,7 +1501,7 @@ Then('SGB-0020 Set goal', async () => {
 	element(by.xpath("html/body/div[3]/aside[1]/div[2]/footer/button[1]")).click();
 	await delay(3000);
 });
-When('VR-0040 Place Order button is displayed and click on place order button', async () => {
+Then('VR-0040 Place Order button is displayed and click on place order button', async () => {
 	await expect(browser.findElement(by.xpath(".//*[@id='checkout-step-review']/div[2]/div/button"))).to.eventually.exist;
 	await delay(2000);
 	element(by.xpath(".//*[@id='checkout-step-review']/div[2]/div/button")).click();
@@ -1506,7 +1617,7 @@ When('VR-0050 order conformation is displayed', async () => {
 });
 When('VR-0060 Enter organization information', async () => {
 	browser.navigate().refresh();
-	await delay(25000);
+	await delay(30000);
 	element(by.xpath(".//*[@id='groupLeader']")).sendKeys("KSCR");
 	await delay(2000);
 	element(by.xpath(".//*[@id='groupMission']")).sendKeys("I love my country");
@@ -1724,14 +1835,14 @@ Then('SPP-0050 Product details are displayed',async () => {
 });
 Then('SPP-0060 Product page is displayed',async () => {
 	await delay(5000);
-	element(by.xpath("//a[@href='https://market.beta.formed.org/study/faith-formation.html']")).click();
+	element(by.xpath("//a[@href='https://market.beta.formed.org/shop-products/listen/talks.html']")).click();
 	await delay(10000);
 	await expect(browser.findElement(by.xpath(".//*[@id='amasty-shopby-product-list']/div[3]/ol/li/div/a/img"))).to.eventually.exist;
 	await delay(5000);
 	await expect(browser.findElement(by.xpath(".//*[@id='sorter']"))).to.eventually.exist;
 	await delay(5000);
 	element(by.xpath(".//*[@id='sorter']")).click(); 
-	await delay(1000);
+	await delay(5000);
 });
 Then('SPP-0070 featured drop down is displayed',async () => {
     await delay(5000);
@@ -2002,16 +2113,16 @@ Then('LPA-0020 Click on read Link and Verify with parish admin', async () => {
 Then('LPA-0030 Click on sacramental-preparation and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/study?linkId=study-sacramental-preparation']")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='study-sacramental-preparation']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0030 Click on Faith Information and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/study?linkId=study-faith-formation']")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='study-faith-formation']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
-	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+    await delay(3000);
 });
 Then('LPA-0030 Click on Bible studies and Verify with parish admin', async () => {
 	element(by.xpath(".//*[@id='header']/div/div[3]/div/main-nav/ul/li[1]/segmented-menu-item/div/segmented-links/div/div[3]/a")).click();
@@ -2020,22 +2131,25 @@ Then('LPA-0030 Click on Bible studies and Verify with parish admin', async () =>
 Then('LPA-0030 Click on Current Topics and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/study?linkId=study-current-topics']")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='study-current-topics']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
 	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
+	await delay(3000);  
 });
 Then('LPA-0030 Click on Youth Disciple and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/study?linkId=study-youth']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[1]/div/a/img"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='study-youth']/div/div[1]/h1"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[2]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0030 Click on espanol and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/study?linkId=study-espanol']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[6]/segment/div[2]/div/stripe/div/div/div/div/div[1]"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[6]/segment/div[2]/div/stripe/div/div/div/div/div[1]"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 When('STUDY link is hovered', async () => {
@@ -2062,15 +2176,17 @@ Then('LPA-0040 Click on Watch Movies and Verify with parish admin', async () => 
 	await delay(6000);
 	element(by.xpath("//a[@href='/watch?linkId=watch-movies']")).click();
 	await delay(25000);
-	await expect(browser.findElement(by.xpath(".//*[@id='watch-movies']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[1]/segment/div[3]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0040 Click on Documentaries and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/watch?linkId=watch-documentaries']")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='watch-documentaries']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('click on Faith formation link and verify', async () => {
@@ -2083,22 +2199,25 @@ Then('click on Faith formation link and verify', async () => {
 Then('LPA-0040 Click on Apologetics and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/watch?linkId=watch-apologetics']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='watch-apologetics']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0040 Click on Watch Youth Disciple and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/watch?linkId=watch-youth']")).click();
 	await delay(10000);
-	await expect(browser.findElement(by.xpath(".//*[@id='watch-youth']/div/div[1]/h1"))).to.eventually.exist;
-	//await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0040 Click on watch espanol and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/watch?linkId=watch-espanol']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='watch-espanol']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[4]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/segmented-page/div/div[5]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[5]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('LPA-0050 Click on Listen Talks and Verify with parish admin', async () => {
@@ -2106,11 +2225,12 @@ Then('LPA-0050 Click on Listen Talks and Verify with parish admin', async () => 
 	element(by.xpath(".//*[@id='header']/div/div[3]/div/main-nav/ul/li[3]/segmented-menu-item/div/segmented-links/div/div[3]/a")).click();
 	await delay(10000);
 });
-Then('LPA-0050 Click on Listen audio drama and Verify with parish admin', async () => {
+Then('LPA-0050 Click on Listen audio dramas and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/listen?linkId=listen-dramas']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='listen-dramas']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[1]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[1]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[3]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });
 Then('click on Bible studies link and verify', async () => {
@@ -2123,15 +2243,35 @@ Then('click on Bible studies link and verify', async () => {
 Then('LPA-0050 Click on Listen audio books and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/listen?linkId=listen-audiobooks']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='listen-audiobooks']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[3]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[6]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
 	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[2]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[9]/div/a/img"))).to.eventually.exist;
+	await delay(3000);
+});
+When('Click on Choose organization', async () => {
+	element(by.xpath(".//*[@id='co-payment-form']/fieldset")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='group-subscription-diocese-select']")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@id='group-subscription-diocese-select']/option[5]")).click();
+	await delay(2000);
+	element(by.xpath(".//*[@id='group-subscription-organization-select']")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@id='group-subscription-organization-select']/option[6]")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@id='group-subscription-organization']/div[4]/div/button")).click();
+	await delay(15000);
 });
 Then('LPA-0050 Click on Listen espanol and Verify with parish admin', async () => {
 	element(by.xpath("//a[@href='/listen?linkId=listen-espanol']")).click();
 	await delay(6000);
-	await expect(browser.findElement(by.xpath(".//*[@id='listen-espanol']/div/div[1]/h1"))).to.eventually.exist;
-	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[6]/div/a/img"))).to.eventually.exist;
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[1]/div[1]/h3"))).to.eventually.exist;
+	await delay(3000);
+	await expect(browser.findElement(by.xpath(".//*[@id='scroll-top']/div/div[2]/div/segmented-page/div/div[4]/segment/div[2]/div/stripe/div/div/div[2]/div/div/div/div/div[9]/div/a/img"))).to.eventually.exist;
 	await delay(3000);
 });    
 Then('LPA-0060 Click on NonFiction and Verify with parish admin', async () => {
@@ -2560,5 +2700,270 @@ Then('BiaY Payment information is displayed', async () => {
 	await delay(2000);  
     element(by.xpath(".//*[@id='checkout-step-payment']/div/div[3]/div/button")).click();
     await delay(15000);
+});
+Then('ALA-0010 click on Account', async () => {
+	await delay(8000);
+	element(by.xpath(".//*[@id='simple-dropdown']/span")).click();
+	await delay(4000);
+	element(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[1]")).click();
+	await delay(10000); 
+});
+Then('ALA-0020 click on On Demand subscription in account page', async () => {
+	await delay(5000);
+	element(by.xpath(".//*[@id='account-nav']/ul/li[9]/a")).click();
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div[2]/div[2]/div/a"))).to.eventually.exist;
+	await delay(2000);  
+});
+When('FFC-0320 click on cancel contribution', async () => {
+	await delay(15000);
+	await expect(browser.findElement(by.xpath("//*[@id='cancel-ondemand-btn']"))).to.eventually.exist;
+	await delay(2000);
+	element(by.xpath("//*[@id='cancel-ondemand-btn']")).click();
+	await delay(5000);
+	element(by.xpath("html/body/div[3]/aside[5]/div[2]/footer/button[1]")).click();
+	await delay(10000);
+});
+When('FFC-0320 Formed Contribution status is inactive', async () => {
+	await delay(15000);
+	element(by.xpath(".//*[@id='account-nav']/ul/li[10]/a")).click();
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div/div[2]/div[2]/span[2]/span"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('ALA-0030 click Edit button in payment method', async () => {
+	await delay(5000);
+	element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[2]/a")).click();
+	await delay(15000);
+});
+Then('ALA-0040 click on change payment Method', async () => {
+	await delay(5000);
+	element(by.xpath(".//*[@id='md_savecard']")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@id='md_savecard']/option[1]")).click();
+	await delay(5000);
+});
+Then('ALA-0050 Billing information from pbc', async () => {
+	await delay(15000);
+	element(by.xpath("//*[@id='billing_address_firstname']")).sendKeys("Fname");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_lastname']")).sendKeys("Lname");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_street']")).sendKeys("chicago ilunious");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_city']")).sendKeys("chicago");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_region_id']")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@value='12']")).click();
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_zip']")).sendKeys("60014");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_telephone']")).sendKeys("88557715158");
+	await delay(5000);
+	element(by.xpath("//*[@id='billing_address_authorized_by']")).sendKeys("saichraaaa");
+	await delay(5000);
+	element(by.xpath("html/body/div[3]/aside[1]/div[2]/footer/button")).click();
+	await delay(15000);
+});
+Then('ALA-0060 click on Add Cupon in On demand subscription', async () => {
+	element(by.xpath(".//*[@id='coupon-btn']")).click();
+	await delay(5000);
+	element(by.xpath(".//*[@id='coupon-edit-popup-container']/div/p/input")).sendKeys("testGAS");
+	await delay(5000);
+	element(by.xpath(".//*[@class='cancel-ondemand-btn']")).click();
+	await delay(10000);
+});
+Then('ALA-0070 click on Resend invoice', async () => {
+	await delay(5000);
+	element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div/div[1]/div/div[1]/span[2]/a")).click();
+	await delay(8000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div[2]/div[1]/div/div"))).to.eventually.exist;
+    await delay(2000);
+});
+Then('FFC-0120 click on Account', async () => {
+	await delay(8000);
+	element(by.xpath(".//*[@id='simple-dropdown']/span")).click();
+	await delay(20000);
+	await expect(browser.findElement(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[1]"))).to.eventually.exist;
+    await delay(2000);
+	element(by.xpath(".//*[@id='header']/div/div[1]/div/div/ul/profile-menu/div/div/div/div/div[2]/a[1]")).click();
+	await delay(4000);
+});
+Then('FFC-0120 click on On Demand Subscription', async () => {
+	await delay(5000);
+	await expect(browser.findElement(by.xpath("//a[@href='https://market.beta.formed.org/formed/account/']"))).to.eventually.exist;
+	await delay(2000);
+	element(by.xpath("//a[@href='https://market.beta.formed.org/formed/account/']")).click();
+	await delay(15000);
+});
+When('FFC-0220 click on enable button in On Demand Subscription page', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@id='maincontent']/div[3]/div[1]/div[3]/div[1]/div[2]/div[2]/div/a")).click();
+	await delay(10000);
+});
+Then('FFC-0220 Accept Terms buton is displayed', async () => {
+	await delay(10000);
+	await expect(browser.findElement(by.xpath("html/body/div[3]/aside[4]/div[2]/footer/button[1]"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0220 click on Accept Terms button', async () => {
+	await delay(15000);
+	element(by.xpath("html/body/div[3]/aside[4]/div[2]/footer/button[1]")).click();
+	await delay(5000);
+	await expect(browser.findElement(by.xpath("html/body/div[3]/aside[3]/div[2]/footer/button[1]"))).to.eventually.exist;
+	await delay(2000);
+	element(by.xpath("html/body/div[3]/aside[3]/div[2]/footer/button[1]")).click();
+	await delay(10000);
+});
+When('FFC-0220 click on Enable Formed Funding', async () => {
+	await delay(5000);
+	element(by.xpath(".//*[@class='primary enable-modal-btn']")).click();
+	await delay(10000);
+});
+When('FFC-0260 click on Cancel On-demand subscription', async () => {
+	element(by.xpath(".//*[@id='cancel-ondemand-btn']")).click();
+	await delay(10000);
+	await expect(browser.findElement(by.xpath("html/body/div[3]/aside[5]/div[2]/footer/button[1]"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0260 click on Cancel Subscription', async () => {
+	element(by.xpath("html/body/div[3]/aside[5]/div[2]/footer/button[1]")).click();
+	await delay(5000);
+});
+Then('FFC-0260 Subcription was cancelled message is displayed', async () => {
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div[2]/div[1]/div/div")).getText()).to.eventually.equal('Your subscription was canceled.');
+	await delay(5000);
+});
+When('FFC-0220 Formed Funding is enable', async () => {
+	await delay(5000);
+	await expect(browser.findElement(by.xpath(".//*[@class='primary enable-modal-btn']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0230 Formed funding Tab page is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@id='enableModalToggle']"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='formed-funding-history-table-export']"))).to.eventually.exist;
+	await delay(2000);
+});
+When('FFC-0250 Disable button is displayed', async () => {
+	await delay(5000);
+	await expect(browser.findElement(by.xpath(".//*[@id='enableModalToggle']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0250 click on disable button in formed funding page', async () => {
+	element(by.xpath(".//*[@id='enableModalToggle']")).click();
+	await delay(10000);
+});
+Then('FFC-0250 click on Disable formed funding', async () => {
+	element(by.xpath(".//*[@class='primary enable-modal-btn']")).click();
+	await delay(7000);
+});
+Then('FFC-0250 Campigan disable message is dispalyed', async () => {
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div[2]/div[1]/div/div")).getText()).to.eventually.equal('Campaign disabled successfully.');
+	await delay(5000);
+});
+When('click on logout button in Account page',async () => {
+    element(by.xpath(".//*[@id='account-dropdown-button']")).click();
+    await delay(5000);
+    await expect(browser.findElement(by.xpath(".//*[@id='account-dropdown']/div/a[5]"))).to.eventually.exist;
+    await delay(3000);
+    element(by.xpath(".//*[@id='account-dropdown']/div/a[5]")).click();
+    await delay(15000);
+});
+Then('FFC-0110 click on login button and enter Formed funding user details', async () => {
+    await delay(10000);
+    element(by.xpath(".//*[@id='login-dropdown-button']")).click();
+    await delay(3000);
+    element(by.xpath(".//*[@id='gigya-login-screen']/form/div/div[1]/div[1]/input")).sendKeys("Bekkam@gmail.com");
+    await delay(1000);
+    element(by.xpath(".//*[@id='gigya-login-screen']/form/div/div[1]/div[2]/input")).sendKeys("Honey@123");
+    await delay(1000);
+    element(by.xpath(".//*[@id='gigya-login-screen']/form/div/div[2]/div/input[1]")).click();
+    await delay(10000);
+});
+Then('FFC-0130 On Demand Subscription page is displayed', async () => {
+    await expect(browser.findElement(by.xpath(".//*[@class='subscription-info__item-content']"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath("//a[@href='/formed-funding/account']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0140 Formed Funding Tab is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath("//a[@href='https://market.beta.formed.org/formed-funding/account/']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0150 Click on Formed Funding Tab', async () => {
+	await delay(3000);
+    element(by.xpath("//a[@href='https://market.beta.formed.org/formed-funding/account/']")).click();
+	await delay(10000);
+});
+Then('FFC-0160 Formed Funding page is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@id='appealModalToggle']"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='goalModalToggle']"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='formed-funding-history-table-export']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0170 click ALL dropdown', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@id='formed-funding-history-table-filter']")).click();
+	await delay(8000);
+	await expect(browser.findElement(by.xpath(".//*[@id='formed-funding-history-table-filter']/option[2]"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0180 click on Hide button in Visisbility', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@id='appealModalToggle']")).click();
+	await delay(10000);
+});
+Then('FFC-0180 Hide APPEALS button is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@class='primary appeal-modal-btn']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0180 click on Hide APPEALS button', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@class='primary appeal-modal-btn']")).click();
+	await delay(10000);
+});
+When('FFC-0190 click on Show button in Hide', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@id='appealModalToggle']")).click();
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@class='primary appeal-modal-btn']"))).to.eventually.exist;
+	await delay(2000);
+});
+Then('FFC-0190 click on Show APPEALS button is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@class='primary appeal-modal-btn']"))).to.eventually.exist;
+	await delay(2000);
+});
+When('FFC-0190 click on Show APPEALS button', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@class='primary appeal-modal-btn']")).click();
+	await delay(10000);
+});
+Then('FFC-0200 Formed Funding History is displayed', async () => {
+	await delay(3000);
+    await expect(browser.findElement(by.xpath(".//*[@id='campaign_history-0']/td[2]"))).to.eventually.exist;
+	await delay(2000);
+	await expect(browser.findElement(by.xpath(".//*[@id='campaign_history-1']/td[2]"))).to.eventually.exist;
+	await delay(2000);
+});
+When('FFC-0210 click on Edit in Formed funding', async () => {
+	await delay(3000);
+    element(by.xpath(".//*[@id='goalModalToggle']")).click();
+	await delay(10000);
+	element(by.xpath(".//*[@id='goal-modal']/div/input")).click();
+	await delay(5000);
+	element(by.xpath("html/body/div[5]/aside[3]/div[2]/footer/button")).click();
+	await delay(10000);
+	await expect(browser.findElement(by.xpath(".//*[@id='maincontent']/div[2]/div[2]/div[1]/div/div")).getText()).to.eventually.equal('Campaign funding goal successfully changed.');
+	await delay(10000);
 });
 });
