@@ -9,5 +9,5 @@
   # from at document
   Scenario: 
   When navigate to market
-  Then PBP-0070 Enter Details in create Account
+  Then Enter Gmails Account
   
