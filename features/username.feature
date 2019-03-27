@@ -9,5 +9,5 @@
   # from at document
   Scenario: 
   When navigate to market
-  Then Enter Gmails Account
+  Then Enter Gmail Accounts
   
