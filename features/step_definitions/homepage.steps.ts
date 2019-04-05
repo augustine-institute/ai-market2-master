@@ -90,7 +90,7 @@ defineSupportCode(function ({ Given, Then, When }) {
             var obj = {
                 randomMails: []
             };
-            for (var i = 0; i < 10i++) {
+            for (var i = 0; i < 10; i++) {
                 let randomString = Date.now();
                 let randomMail = `invalid+${randomString+i}@gmail.com`;
                 obj.randomMails.push(randomMail);
